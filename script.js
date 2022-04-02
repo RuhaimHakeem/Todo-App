@@ -15,7 +15,12 @@ function getItems() {
   db.collection("todo-items").onSnapshot((snapshot) => {
     let items = [];
     snapshot.docs.forEach((doc) => {
-      items.push(doc.data());
+      items.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+
+      console.log(items);
     });
   });
 }
