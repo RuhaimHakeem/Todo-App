@@ -57,6 +57,22 @@ body {
 
 .check {
   width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.check-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  border: 2px solid hsl(237, 14%, 26%);
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.check-mark:hover {
+  background: linear-gradient(135deg, #55ddff 0%, #c058f3 100%);
 }
 
 .new-todo-input {
