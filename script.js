@@ -31,11 +31,15 @@ function generateItems(items) {
     itemsHTML += `
     <div class="todo-item">
     <div class="check">
-      <div data-id="${item.id}"class="check-mark">
+      <div data-id="${item.id}"class="check-mark ${
+      item.status === "completed" ? "checked" : ""
+    }">
         <img src="./assets/icon-check.svg" alt="" />
       </div>
     </div>
-    <div class="todo-text">${item.text}</div>
+    <div class="todo-text  ${item.status === "completed" ? "checked" : ""}">${
+      item.text
+    }</div>
   </div>
     `;
   });
@@ -48,7 +52,6 @@ function generateItems(items) {
 function createEventListeners() {
   let todoCheckMark = document.querySelectorAll(".todo-item .check-mark");
   todoCheckMark.forEach((checkMark) => {
-    console.log(checkMark);
     checkMark.addEventListener("click", function () {
       markCompleted(checkMark.dataset.id);
     });
@@ -57,9 +60,10 @@ function createEventListeners() {
 
 function markCompleted(id) {
   let item = db.collection("todo-items").doc(id);
-  item.get().then(function (doc) {
+  item.get().then((doc) => {
     if (doc.exists) {
-      let status = doc.data.status;
+      console.log(doc.data());
+      let status = doc.data().status;
       if (status === "active") {
         item.update({
           status: "completed",
