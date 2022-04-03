@@ -19,10 +19,43 @@ function getItems() {
         id: doc.id,
         ...doc.data(),
       });
+    });
 
-      console.log(items);
+    generateItems(items);
+  });
+}
+
+function generateItems(items) {
+  let itemsHTML = "";
+  items.forEach((item) => {
+    itemsHTML += `
+    <div class="todo-item">
+    <div class="check">
+      <div class="check-mark">
+        <img src="./assets/icon-check.svg" alt="" />
+      </div>
+    </div>
+    <div class="todo-text">${item.text}</div>
+  </div>
+    `;
+  });
+
+  document.querySelector(".todo-items").innerHTML = itemsHTML;
+
+  createEventListeners();
+}
+
+function createEventListeners() {
+  let todoCheckMark = document.querySelectorAll(".todo-item .check-mark");
+  todoCheckMark.forEach((checkMark) => {
+    checkMark.addEventListener("click", function () {
+      markCompleted();
     });
   });
+}
+
+function markCompleted() {
+  console.log("comple");
 }
 
 getItems();
